@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>作品集 — 網頁設計接案</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #070707;
+    --s1: #101010;
+    --s2: #161616;
+    --border: #1e1e1e;
+    --cream: #f4f0e8;
+    --gold: #c8a44a;
+    --gold2: #e0bc68;
+    --muted: #5a5a5a;
+    --text: #eeebe4;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--gold); color: #000; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.5rem 4rem;
+    background: rgba(7,7,7,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; letter-spacing: 0.08em;
+    color: var(--cream); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+  .nav-links a {
+    font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    padding: 0.5rem 1.4rem;
+    border: 1px solid var(--gold);
+    color: var(--gold) !important;
+    transition: background 0.3s, color 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: #000 !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 9rem 4rem 5.5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 55% 45% at 80% 20%, rgba(200,164,74,0.07) 0%, transparent 65%),
+      radial-gradient(ellipse 30% 40% at 10% 80%, rgba(200,164,74,0.04) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  /* subtle grid */
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(200,164,74,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,164,74,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold);
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 2.5rem; position: relative; z-index: 1;
+  }
+  .hero-eyebrow::before { content: ''; width: 36px; height: 1px; background: var(--gold); }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 7.5rem);
+    font-weight: 400; line-height: 1.02;
+    letter-spacing: -0.02em;
+    max-width: 1000px;
+    position: relative; z-index: 1;
+  }
+  h1 em { font-style: italic; color: var(--gold); }
+  .hero-bottom {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-top: 3.5rem; flex-wrap: wrap; gap: 2rem;
+    position: relative; z-index: 1;
+  }
+  .hero-desc { max-width: 400px; color: var(--muted); font-size: 0.92rem; line-height: 1.85; }
+  .hero-meta { display: flex; gap: 3rem; }
+  .meta-item { text-align: right; }
+  .meta-n {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; color: var(--cream); line-height: 1; display: block;
+  }
+  .meta-l {
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); display: block; margin-top: 0.3rem;
+  }
+  .scroll-cue {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+    color: var(--muted); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+    animation: float 2.5s ease-in-out infinite;
+  }
+  .scroll-cue::after { content: ''; width: 1px; height: 44px; background: linear-gradient(to bottom, var(--muted), transparent); }
+  @keyframes float { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(7px)} }
+
+  /* ── WORKS ── */
+  .works { padding: 7rem 4rem; }
+  .works-intro {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 5rem; flex-wrap: wrap; gap: 2rem;
+  }
+  .works-intro-r { max-width: 340px; color: var(--muted); font-size: 0.88rem; line-height: 1.85; }
+  .eyebrow {
+    font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.25rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .eyebrow::before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+  .works-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    font-weight: 400; line-height: 1.2;
+  }
+
+  /* Project cards */
+  .project {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0; margin-bottom: 2px;
+    border: 1px solid var(--border);
+    text-decoration: none; color: inherit;
+    transition: border-color 0.4s;
+    overflow: hidden;
+  }
+  .project:hover { border-color: var(--gold); }
+  .project.flip { direction: rtl; }
+  .project.flip > * { direction: ltr; }
+
+  /* Visual pane */
+  .project-visual {
+    aspect-ratio: 16/10;
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  /* Restaurant — warm dark amber */
+  .vis-restaurant {
+    background: linear-gradient(135deg, #0e0904 0%, #2a1608 40%, #4a2810 65%, #0e0904 100%);
+  }
+  .vis-restaurant::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 55% 35%, rgba(184,120,40,0.25) 0%, transparent 65%);
+  }
+  /* Photo — dark moody monochrome */
+  .vis-photo {
+    background: linear-gradient(135deg, #181510 0%, #282018 45%, #181510 100%);
+  }
+  .vis-photo::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 60% at 40% 40%, rgba(240,230,210,0.07) 0%, transparent 60%);
+  }
+  /* SaaS — deep indigo */
+  .vis-saas {
+    background: linear-gradient(135deg, #030308 0%, #0d0d20 40%, #14143a 65%, #030308 100%);
+  }
+  .vis-saas::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 60% 30%, rgba(94,106,210,0.2) 0%, transparent 65%);
+  }
+  .vis-label {
+    position: absolute; bottom: 1.5rem; left: 1.75rem;
+    font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: rgba(244,240,232,0.25);
+  }
+  .vis-center {
+    position: relative; z-index: 1;
+    text-align: center; padding: 2rem;
+  }
+  .vis-glyph-jp {
+    font-family: 'Playfair Display', serif;
+    font-size: 5.5rem; line-height: 1;
+    color: rgba(200,164,74,0.15); display: block; margin-bottom: 0.5rem;
+  }
+  .vis-tag-jp {
+    font-size: 0.62rem; letter-spacing: 0.4em;
+    color: rgba(200,164,74,0.3);
+  }
+  .vis-glyph-mono {
+    font-family: var(--mono);
+    font-size: 1.5rem; color: rgba(94,106,210,0.3);
+    line-height: 1.5;
+    display: block;
+  }
+  .vis-glyph-photo {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem; font-style: italic;
+    color: rgba(240,230,210,0.08); display: block;
+  }
+  .vis-photo-tag {
+    font-size: 0.6rem; letter-spacing: 0.3em;
+    color: rgba(240,230,210,0.15); display: block;
+    margin-top: 0.5rem;
+  }
+
+  /* Info pane */
+  .project-info {
+    padding: 3rem 3.5rem;
+    background: var(--s1);
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .project-top { display: flex; justify-content: space-between; align-items: flex-start; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); border: 1px solid var(--border);
+    padding: 0.2rem 0.7rem;
+  }
+  .project-arrow {
+    font-size: 1.4rem; color: var(--gold);
+    transition: transform 0.35s;
+  }
+  .project:hover .project-arrow { transform: translate(4px, -4px); }
+  .project-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 2.2vw, 1.8rem);
+    font-weight: 400; line-height: 1.3;
+    margin: 2rem 0 1rem;
+  }
+  .project-name em { font-style: italic; color: var(--muted); }
+  .project-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.85; }
+  .project-meta {
+    margin-top: 2rem; padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    display: flex; gap: 2rem;
+  }
+  .pm-item { }
+  .pm-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.25rem; }
+  .pm-val { font-family: var(--mono); font-size: 0.8rem; color: var(--gold2); }
+
+  /* ── SERVICES ── */
+  .services {
+    padding: 8rem 4rem;
+    background: var(--s1);
+    border-top: 1px solid var(--border);
+  }
+  .services-inner {
+    display: grid; grid-template-columns: 1fr 2fr; gap: 7rem; align-items: start;
+  }
+  .services-sticky { position: sticky; top: 8rem; }
+  .service-list { display: flex; flex-direction: column; gap: 0; }
+  .service-row {
+    display: grid; grid-template-columns: 3rem 1fr;
+    gap: 2rem; align-items: start;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+  .service-row:first-child { border-top: 1px solid var(--border); }
+  .service-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: var(--border);
+    padding-top: 0.15rem;
+  }
+  .service-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; color: var(--cream);
+    margin-bottom: 0.75rem;
+  }
+  .service-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.85; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+  .stag {
+    font-family: var(--mono);
+    font-size: 0.65rem; color: var(--muted);
+    border: 1px solid var(--border); padding: 0.2rem 0.55rem;
+  }
+
+  /* ── PROCESS ── */
+  .process { padding: 8rem 4rem; }
+  .process-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2px; margin-top: 4rem;
+  }
+  .step {
+    padding: 2.5rem 2rem;
+    border: 1px solid var(--border);
+    transition: border-color 0.3s;
+  }
+  .step:hover { border-color: var(--gold); }
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem; color: var(--border); line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .step-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; color: var(--cream);
+    margin-bottom: 0.75rem;
+  }
+  .step-desc { color: var(--muted); font-size: 0.82rem; line-height: 1.85; }
+
+  /* ── CTA ── */
+  .cta {
+    padding: 11rem 4rem;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .cta::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 70% at 50% 50%, rgba(200,164,74,0.055) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    font-weight: 400; line-height: 1.1;
+    margin-bottom: 2rem;
+  }
+  .cta-title em { font-style: italic; color: var(--gold); }
+  .cta-sub { color: var(--muted); margin-bottom: 3.5rem; font-size: 0.92rem; }
+  .cta-email {
+    display: inline-block;
+    font-family: 'Playfair Display', serif; font-size: 1.3rem;
+    color: var(--gold); text-decoration: none;
+    border-bottom: 1px solid rgba(200,164,74,0.3);
+    padding-bottom: 3px; transition: border-color 0.3s;
+  }
+  .cta-email:hover { border-color: var(--gold); }
+  .cta-note {
+    margin-top: 3rem;
+    display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+  }
+  .cta-note-item { text-align: center; }
+  .cni-label { font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.3rem; }
+  .cni-val { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2.5rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-copy { font-size: 0.72rem; color: var(--muted); }
+
+  /* ── FADE ── */
+  .f { opacity: 0; transform: translateY(22px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .f.on { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.5rem 2rem; }
+    .nav-links { display: none; }
+    .hero, .works, .services, .process, .cta { padding: 6rem 2rem 4rem; }
+    .project, .project.flip { grid-template-columns: 1fr; direction: ltr; }
+    .services-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .process-grid { grid-template-columns: 1fr 1fr; }
+    footer { padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#">Studio.</a>
+  <div class="nav-links">
+    <a href="#works">作品</a>
+    <a href="#services">服務</a>
+    <a href="#contact">聯絡</a>
+    <a href="#contact" class="nav-cta">接洽合作</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">台北 · 網頁設計 × 前端開發</div>
+  <h1>
+    讓品牌<em>發光</em>的<br>
+    數位設計工作室
+  </h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      為餐飲、科技、創意產業打造獨特的網頁體驗。<br>
+      從品牌策略到程式碼交付，全流程一手包辦。
+    </p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-n">50+</span>
+        <span class="meta-l">完成案件</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-n">5+</span>
+        <span class="meta-l">年經驗</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-n">3</span>
+        <span class="meta-l">產業</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">向下瀏覽</div>
+</section>
+
+<section class="works" id="works">
+  <div class="works-intro f">
+    <div>
+      <div class="eyebrow">精選案例</div>
+      <h2 class="works-title">三個產業<br>三種語言</h2>
+    </div>
+    <p class="works-intro-r">
+      好的設計不是套模板——是理解每個品牌的個性，<br>
+      用對的視覺語言說出它的故事。
+    </p>
+  </div>
+
+  <!-- Case 1: 鮨隆 -->
+  <a href="restaurant.html" class="project f">
+    <div class="project-visual vis-restaurant">
+      <div class="vis-center">
+        <span class="vis-glyph-jp">鮨</span>
+        <span class="vis-tag-jp">MICHELIN ★ · 台北中山</span>
+      </div>
+      <div class="vis-label">餐廳官網 · 2025</div>
+    </div>
+    <div class="project-info">
+      <div class="project-top">
+        <div class="project-tags">
+          <span class="tag">餐飲</span>
+          <span class="tag">米其林</span>
+          <span class="tag">品牌官網</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div>
+        <h2 class="project-name">
+          鮨隆 Sushi Ryu<br>
+          <em>米其林一星 · 台北中山</em>
+        </h2>
+        <p class="project-desc">
+          台北連續入選米其林指南一星壽司。主廚楊永隆三十三年功力，
+          每週空運日本漁獲，16 席全預約制。<br><br>
+          設計以暗棕琥珀色調呈現奢華感，傳統漢字水印、
+          燙金細節，讓預約頁面本身就是用餐體驗的起點。
+        </p>
+      </div>
+      <div class="project-meta">
+        <div class="pm-item">
+          <span class="pm-label">風格</span>
+          <span class="pm-val">Luxury · Japanese</span>
+        </div>
+        <div class="pm-item">
+          <span class="pm-label">功能</span>
+          <span class="pm-val">Menu · Reservation</span>
+        </div>
+        <div class="pm-item">
+          <span class="pm-label">技術</span>
+          <span class="pm-val">HTML · CSS · JS</span>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- Case 2: 劉振祥 (flipped layout) -->
+  <a href="photo.html" class="project flip f">
+    <div class="project-visual vis-photo">
+      <div class="vis-center">
+        <span class="vis-glyph-photo">Liu</span>
+        <span class="vis-photo-tag">吳三連獎 · 雲門 · 金馬</span>
+      </div>
+      <div class="vis-label">攝影師作品集 · 2025</div>
+    </div>
+    <div class="project-info">
+      <div class="project-top">
+        <div class="project-tags">
+          <span class="tag">攝影</span>
+          <span class="tag">藝術</span>
+          <span class="tag">作品集</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div>
+        <h2 class="project-name">
+          劉振祥 影像工作者<br>
+          <em>雲門舞集 · 大佛普拉斯</em>
+        </h2>
+        <p class="project-desc">
+          台灣最重要的影像工作者之一。第 33 屆吳三連獎攝影類得主，
+          與雲門舞集合作逾三十五年，《大佛普拉斯》《陽光普照》兩部金馬最佳影片劇照主攝。<br><br>
+          極簡米白色系、大面積留白、Masonry 瀑布流排版，
+          讓作品成為頁面的唯一主角。
+        </p>
+      </div>
+      <div class="project-meta">
+        <div class="pm-item">
+          <span class="pm-label">風格</span>
+          <span class="pm-val">Editorial · Minimal</span>
+        </div>
+        <div class="pm-item">
+          <span class="pm-label">功能</span>
+          <span class="pm-val">Gallery · Bio</span>
+        </div>
+        <div class="pm-item">
+          <span class="pm-label">技術</span>
+          <span class="pm-val">HTML · CSS · JS</span>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- Case 3: Linear -->
+  <a href="saas.html" class="project f">
+    <div class="project-visual vis-saas">
+      <div class="vis-center">
+        <span class="vis-glyph-mono">ENG-247 · In Progress<br>ENG-251 · Todo<br>ENG-258 · Done ✓</span>
+      </div>
+      <div class="vis-label" style="color:rgba(94,106,210,0.3)">SaaS Landing · 2025</div>
+    </div>
+    <div class="project-info">
+      <div class="project-top">
+        <div class="project-tags">
+          <span class="tag">SaaS</span>
+          <span class="tag">Tech</span>
+          <span class="tag">Landing Page</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </div>
+      <div>
+        <h2 class="project-name">
+          Linear — Issue Tracker<br>
+          <em>$400M valuation · SF</em>
+        </h2>
+        <p class="project-desc">
+          全球最受工程師喜愛的 Issue Tracker，由前 Airbnb、Coinbase、Uber 高管創立。
+          $4.2M seed（Sequoia），估值逾 $400M，Vercel、Notion、Ramp 等知名新創採用。<br><br>
+          暗色深紫系 UI，真實 Dashboard Mockup、
+          完整 4 方案定價（Free / $8 / $16 / Enterprise），還原真實產品頁。
+        </p>
+      </div>
+      <div class="project-meta">
+        <div class="pm-item">
+          <span class="pm-label">風格</span>
+          <span class="pm-val">Dev-first · Dark</span>
+        </div>
+        <div class="pm-item">
+          <span class="pm-label">功能</span>
+          <span class="pm-val">Mockup · Pricing</span>
+        </div>
+        <div class="pm-item">
+          <span class="pm-label">技術</span>
+          <span class="pm-val">HTML · CSS · JS</span>
+        </div>
+      </div>
+    </div>
+  </a>
+</section>
+
+<section class="services f" id="services">
+  <div class="services-inner">
+    <div class="services-sticky">
+      <div class="eyebrow">服務項目</div>
+      <h2 class="works-title" style="font-size:clamp(1.6rem,2.5vw,2.4rem)">
+        我能為你<br>做什麼
+      </h2>
+      <p style="color:var(--muted);font-size:0.88rem;line-height:1.85;margin-top:1.5rem;max-width:280px;">
+        從品牌定位到上線交付，<br>
+        一個人就能搞定所有環節。
+      </p>
+    </div>
+    <div class="service-list">
+      <div class="service-row f">
+        <div class="service-num">01</div>
+        <div>
+          <h3 class="service-name">品牌官網設計</h3>
+          <p class="service-desc">
+            從視覺策略、UI 設計到 RWD 前端實作一條龍。
+            不只好看，也要快、要 SEO 友善，讓品牌在搜尋引擎被看見。
+          </p>
+          <div class="service-tags">
+            <span class="stag">Figma</span>
+            <span class="stag">HTML/CSS</span>
+            <span class="stag">JavaScript</span>
+            <span class="stag">SEO</span>
+          </div>
+        </div>
+      </div>
+      <div class="service-row f">
+        <div class="service-num">02</div>
+        <div>
+          <h3 class="service-name">Landing Page / 行銷頁</h3>
+          <p class="service-desc">
+            以轉換率為核心目標，設計具說服力的產品介紹頁。
+            清晰的訴求結構、A/B 測試友善設計，幫你把訪客變客戶。
+          </p>
+          <div class="service-tags">
+            <span class="stag">Conversion Design</span>
+            <span class="stag">React</span>
+            <span class="stag">Next.js</span>
+          </div>
+        </div>
+      </div>
+      <div class="service-row f">
+        <div class="service-num">03</div>
+        <div>
+          <h3 class="service-name">電商網站</h3>
+          <p class="service-desc">
+            流暢購物體驗設計，從商品陳列到結帳流程全面優化。
+            支援 Shopify 主題客製、WooCommerce 外掛開發。
+          </p>
+          <div class="service-tags">
+            <span class="stag">Shopify</span>
+            <span class="stag">WooCommerce</span>
+            <span class="stag">UX</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process f">
+  <div class="eyebrow">合作流程</div>
+  <h2 class="works-title">四個步驟<br>從無到上線</h2>
+  <div class="process-grid">
+    <div class="step f">
+      <div class="step-num">01</div>
+      <h3 class="step-name">探索與策略</h3>
+      <p class="step-desc">深入了解你的品牌、目標受眾與競爭環境，確立設計方向與功能範疇。</p>
+    </div>
+    <div class="step f">
+      <div class="step-num">02</div>
+      <h3 class="step-name">設計提案</h3>
+      <p class="step-desc">交付 Figma 高保真原型，包含桌面與手機版，提供 2 次修改機會。</p>
+    </div>
+    <div class="step f">
+      <div class="step-num">03</div>
+      <h3 class="step-name">前端開發</h3>
+      <p class="step-desc">乾淨、語意化的 HTML/CSS/JS 或 React，確保快速載入與 SEO 表現。</p>
+    </div>
+    <div class="step f">
+      <div class="step-num">04</div>
+      <h3 class="step-name">上線與交付</h3>
+      <p class="step-desc">部署至 Vercel / Netlify 或你指定的主機，提供 30 天免費維護支援。</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta f" id="contact">
+  <h2 class="cta-title">
+    準備好讓<br>你的品牌<em>發光</em>了嗎？
+  </h2>
+  <p class="cta-sub">告訴我你的專案，我通常在 24 小時內回覆</p>
+  <a href="mailto:hello@studio.tw" class="cta-email">hello@studio.tw</a>
+  <div class="cta-note">
+    <div class="cta-note-item">
+      <span class="cni-label">回覆時間</span>
+      <span class="cni-val">24 小時內</span>
+    </div>
+    <div class="cta-note-item">
+      <span class="cni-label">服務範圍</span>
+      <span class="cni-val">台灣 · 全球遠端</span>
+    </div>
+    <div class="cta-note-item">
+      <span class="cni-label">接受幣別</span>
+      <span class="cni-val">TWD · USD</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-copy">© 2025 Studio. · 台北</p>
+  <p class="footer-copy">三個示範網站：鮨隆（餐廳）· 劉振祥（攝影）· Linear（SaaS）</p>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); }), { threshold: 0.06 });
+  document.querySelectorAll('.f').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>劉振祥 — 影像工作者</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --white: #f9f7f4;
+    --off: #f0ece5;
+    --paper: #e8e2d8;
+    --ink: #1c1a17;
+    --muted: #8c8378;
+    --warm: #b5a898;
+    --accent: #6b5e4e;
+    --gold: #9a7d5a;
+    --border: #ddd8cf;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--ink); color: var(--white); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.75rem 4.5rem;
+    background: rgba(249,247,244,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.4s;
+  }
+  nav.scrolled { border-bottom-color: var(--border); }
+  .logo { text-decoration: none; }
+  .logo-name {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.15rem; font-weight: 300;
+    letter-spacing: 0.15em; color: var(--ink);
+    display: block;
+  }
+  .logo-en {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.72rem; letter-spacing: 0.3em;
+    color: var(--muted); display: block; margin-top: 1px;
+  }
+  .nav-links { display: flex; gap: 3rem; align-items: center; }
+  .nav-links a {
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-contact {
+    padding: 0.5rem 1.6rem;
+    border: 1px solid var(--border);
+    color: var(--ink) !important;
+    transition: background 0.3s, border-color 0.3s !important;
+  }
+  .nav-contact:hover { background: var(--ink) !important; color: var(--white) !important; border-color: var(--ink) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 5rem;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 5rem 4.5rem 6rem;
+    background: var(--ink);
+    position: relative; overflow: hidden;
+  }
+  .hero-left::before {
+    content: '振';
+    position: absolute; top: -2rem; right: -1rem;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20rem; font-weight: 700;
+    color: rgba(255,255,255,0.03); line-height: 1;
+    pointer-events: none;
+  }
+  .hero-tag {
+    font-size: 0.62rem; letter-spacing: 0.4em; text-transform: uppercase;
+    color: rgba(181,168,152,0.6);
+    margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-tag::before { content: ''; width: 28px; height: 1px; background: rgba(181,168,152,0.5); }
+  .hero-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300; line-height: 1.4;
+    color: var(--off); letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+  }
+  .hero-title em {
+    font-style: normal; display: block;
+    font-family: 'EB Garamond', serif; font-style: italic;
+    font-size: 0.6em; color: rgba(181,168,152,0.7);
+    letter-spacing: 0.2em; margin-bottom: 0.4rem;
+  }
+  .hero-desc {
+    color: rgba(181,168,152,0.7); font-size: 0.88rem; line-height: 2;
+    max-width: 380px; margin-bottom: 3.5rem;
+  }
+  .hero-stats {
+    display: flex; gap: 3rem;
+  }
+  .stat { }
+  .stat-n {
+    font-family: 'EB Garamond', serif;
+    font-size: 2.5rem; font-weight: 400;
+    color: var(--off); line-height: 1; display: block;
+  }
+  .stat-l {
+    font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(181,168,152,0.5); display: block; margin-top: 0.3rem;
+  }
+  .hero-right {
+    display: grid; grid-template-rows: 1fr 1fr; gap: 0;
+  }
+  .hero-img {
+    background: var(--paper); position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-img.top { background: #d4c9ba; }
+  .hero-img.bot { background: #c8bfb0; }
+  .hero-img::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 40% 40%, rgba(26,24,17,0.08) 0%, transparent 70%);
+  }
+  .img-label {
+    position: absolute; bottom: 1.5rem; right: 1.5rem;
+    font-family: 'EB Garamond', serif; font-style: italic;
+    font-size: 0.78rem; color: rgba(28,26,23,0.35);
+    letter-spacing: 0.1em;
+  }
+  .img-year {
+    position: absolute; top: 1.5rem; left: 1.5rem;
+    font-size: 0.6rem; letter-spacing: 0.25em;
+    color: rgba(28,26,23,0.25); text-transform: uppercase;
+  }
+  .img-number {
+    font-family: 'EB Garamond', serif;
+    font-size: 6rem; font-weight: 400;
+    color: rgba(28,26,23,0.06); line-height: 1;
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    padding: 9rem 4.5rem;
+    display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; align-items: start;
+    border-top: 1px solid var(--border);
+  }
+  .about-sticky { position: sticky; top: 8rem; }
+  .section-label {
+    font-size: 0.62rem; letter-spacing: 0.4em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 2rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+    font-weight: 300; line-height: 1.5;
+    letter-spacing: 0.05em;
+  }
+  .about-text { color: var(--muted); font-size: 0.92rem; line-height: 2.1; }
+  .about-text + .about-text { margin-top: 1.5rem; }
+  .bio-list {
+    margin-top: 3rem; list-style: none;
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .bio-item {
+    display: flex; gap: 2rem; align-items: flex-start;
+    padding: 1.1rem 0; border-bottom: 1px solid var(--border);
+  }
+  .bio-year {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.9rem; color: var(--gold);
+    white-space: nowrap; min-width: 50px; margin-top: 0.1rem;
+  }
+  .bio-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.8; }
+  .bio-desc strong { color: var(--ink); font-weight: 400; }
+
+  /* ── WORKS ── */
+  .works {
+    padding: 8rem 4.5rem;
+    background: var(--off);
+    border-top: 1px solid var(--border);
+  }
+  .works-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 4rem; flex-wrap: wrap; gap: 2rem;
+  }
+  .filter-row { display: flex; gap: 0; }
+  .filter-btn {
+    font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); background: none; border: 1px solid var(--border);
+    border-right: none; padding: 0.5rem 1.2rem;
+    cursor: pointer; font-family: 'Outfit', sans-serif;
+    transition: background 0.2s, color 0.2s;
+  }
+  .filter-btn:last-child { border-right: 1px solid var(--border); }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--ink); color: var(--white); border-color: var(--ink);
+  }
+  /* masonry */
+  .photo-grid { columns: 3; column-gap: 1.25rem; }
+  .photo-item {
+    break-inside: avoid; margin-bottom: 1.25rem;
+    position: relative; overflow: hidden; cursor: pointer;
+    background: var(--paper);
+    transition: transform 0.3s;
+  }
+  .photo-item:hover { transform: scale(0.99); }
+  .photo-overlay {
+    position: absolute; inset: 0;
+    background: rgba(28,26,23,0); display: flex;
+    flex-direction: column; justify-content: flex-end;
+    padding: 1.5rem; transition: background 0.4s;
+  }
+  .photo-item:hover .photo-overlay { background: rgba(28,26,23,0.55); }
+  .photo-meta { opacity: 0; transform: translateY(8px); transition: opacity 0.4s, transform 0.4s; }
+  .photo-item:hover .photo-meta { opacity: 1; transform: none; }
+  .photo-title { font-family: 'EB Garamond', serif; font-size: 1rem; font-style: italic; color: var(--white); margin-bottom: 0.2rem; }
+  .photo-series { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(240,236,229,0.6); }
+  /* placeholder film stills */
+  .ph { display: block; width: 100%; }
+  .ph-1 { padding-top: 125%; background: linear-gradient(160deg, #2a2520 0%, #3d3228 60%, #1a1510 100%); }
+  .ph-2 { padding-top: 70%; background: linear-gradient(140deg, #e8e0d0 0%, #c8c0b0 100%); }
+  .ph-3 { padding-top: 140%; background: linear-gradient(180deg, #c0b8a8 0%, #908880 100%); }
+  .ph-4 { padding-top: 80%; background: linear-gradient(135deg, #1c1a15 0%, #302820 100%); }
+  .ph-5 { padding-top: 110%; background: linear-gradient(160deg, #d8d0c0 0%, #b0a898 100%); }
+  .ph-6 { padding-top: 75%; background: linear-gradient(145deg, #20201a 0%, #383028 100%); }
+  .ph-7 { padding-top: 130%; background: linear-gradient(150deg, #dcd4c4 0%, #a8a098 100%); }
+  .ph-8 { padding-top: 85%; background: linear-gradient(160deg, #181510 0%, #28201a 100%); }
+  .ph-9 { padding-top: 95%; background: linear-gradient(140deg, #c8c0b0 0%, #989080 100%); }
+
+  /* ── SELECTED WORK ── */
+  .selected {
+    padding: 9rem 4.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .selected-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    margin-top: 5rem;
+  }
+  .work-item { }
+  .work-visual {
+    aspect-ratio: 16/10; background: var(--paper);
+    margin-bottom: 2rem; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .wv1 { background: linear-gradient(135deg, #e8e0ce 0%, #c8c0aa 100%); }
+  .wv2 { background: linear-gradient(135deg, #181510 0%, #302820 100%); }
+  .wv3 { background: linear-gradient(135deg, #d4ccbc 0%, #b4ac9c 100%); }
+  .wv4 { background: linear-gradient(135deg, #1c1a14 0%, #2c2418 100%); }
+  .work-visual-num {
+    font-family: 'EB Garamond', serif;
+    font-size: 7rem; font-weight: 400;
+    color: rgba(255,255,255,0.06); line-height: 1;
+  }
+  .work-visual.dark .work-visual-num { color: rgba(255,255,255,0.05); }
+  .work-cat {
+    font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 0.6rem;
+  }
+  .work-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem; font-weight: 300;
+    line-height: 1.4; margin-bottom: 0.8rem;
+  }
+  .work-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.9; }
+  .work-link {
+    display: inline-block; margin-top: 1.25rem;
+    font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px; transition: border-color 0.3s;
+  }
+  .work-link:hover { border-color: var(--ink); }
+
+  /* ── PRESS ── */
+  .press {
+    padding: 7rem 4.5rem;
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  .press-label {
+    font-size: 0.62rem; letter-spacing: 0.4em; text-transform: uppercase;
+    color: rgba(181,168,152,0.5);
+    margin-bottom: 4rem; text-align: center;
+  }
+  .press-row {
+    display: flex; justify-content: center; align-items: center;
+    gap: 5rem; flex-wrap: wrap;
+  }
+  .press-item {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.15rem; letter-spacing: 0.1em;
+    color: rgba(240,236,229,0.15); white-space: nowrap;
+  }
+
+  /* ── CONTACT ── */
+  .contact { padding: 10rem 4.5rem; text-align: center; }
+  .contact-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(2.2rem, 5vw, 4.2rem);
+    font-weight: 300; line-height: 1.4;
+    letter-spacing: 0.05em; margin-bottom: 1.25rem;
+  }
+  .contact-title em { font-style: normal; color: var(--muted); }
+  .contact-sub { color: var(--muted); margin-bottom: 4rem; font-size: 0.9rem; }
+  .contact-email {
+    display: inline-block;
+    font-family: 'EB Garamond', serif; font-size: 1.4rem;
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 4px; transition: border-color 0.3s;
+  }
+  .contact-email:hover { border-color: var(--ink); }
+  .contact-row {
+    display: flex; justify-content: center; gap: 5rem;
+    flex-wrap: wrap; margin-top: 4rem;
+  }
+  .ci { text-align: center; }
+  .ci-label { font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--warm); margin-bottom: 0.4rem; }
+  .ci-val { font-family: 'EB Garamond', serif; font-size: 1rem; color: var(--muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2.5rem 4.5rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-copy { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; }
+  .footer-links { display: flex; gap: 2.5rem; }
+  .footer-links a { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--ink); }
+
+  /* ── FADE ── */
+  .f { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .f.on { opacity: 1; transform: none; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.5rem 2rem; }
+    .nav-links .nav-link { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 7rem 2rem 4rem; }
+    .hero-right { min-height: 50vh; grid-template-rows: 1fr; }
+    .hero-img.bot { display: none; }
+    .about { grid-template-columns: 1fr; padding: 5rem 2rem; gap: 3rem; }
+    .works, .selected, .contact { padding: 5rem 2rem; }
+    .photo-grid { columns: 2; }
+    .selected-grid { grid-template-columns: 1fr; }
+    footer { padding: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="logo" href="#">
+    <span class="logo-name">劉 振 祥</span>
+    <span class="logo-en">Liu Chen-Hsiang · Photographer</span>
+  </a>
+  <div class="nav-links">
+    <a href="#about" class="nav-link">關於</a>
+    <a href="#works" class="nav-link">作品</a>
+    <a href="#contact" class="nav-contact">合作洽詢</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">台北 · 1963 年生 · 影像工作者</div>
+    <h1 class="hero-title">
+      <em>Liu Chen-Hsiang</em>
+      用快門<br>書寫<br>台灣
+    </h1>
+    <p class="hero-desc">
+      雲門舞集合作逾三十年、《大佛普拉斯》《陽光普照》電影劇照主攝。
+      第 33 屆吳三連獎攝影類得主。
+      以人文紀實、劇場、電影為核心，記錄台灣土地的深度溫度。
+    </p>
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-n">30+</span>
+        <span class="stat-l">年資</span>
+      </div>
+      <div class="stat">
+        <span class="stat-n">40+</span>
+        <span class="stat-l">電影劇照</span>
+      </div>
+      <div class="stat">
+        <span class="stat-n">1</span>
+        <span class="stat-l">吳三連獎</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img top">
+      <div class="img-year">雲門舞集 · 2019</div>
+      <div class="img-number">01</div>
+      <div class="img-label">池上秋收稻穗藝術節</div>
+    </div>
+    <div class="hero-img bot">
+      <div class="img-year">大佛普拉斯 · 2017</div>
+      <div class="img-number" style="color:rgba(255,255,255,0.05)">02</div>
+      <div class="img-label" style="color:rgba(240,236,229,0.35)">電影劇照</div>
+    </div>
+  </div>
+</section>
+
+<section class="about f" id="about">
+  <div class="about-sticky">
+    <div class="section-label">影像履歷</div>
+    <h2 class="section-title">三十年<br>鏡頭下的<br>台灣故事</h2>
+  </div>
+  <div>
+    <p class="about-text">
+      1963 年生，台北人，復興商工美術科畢業。曾任《時報新聞週刊》、自立報系《台北人》月刊攝影。
+      1987 年起開始參與雲門舞集的攝影記錄工作，至今逾三十五年。
+    </p>
+    <p class="about-text">
+      劉振祥的影像語言安靜而有力，善以光線與構圖捕捉人與空間之間最細微的情感張力。
+      他相信每一個快門都是一次對世界的凝視，不急、不搶，等待那個只屬於這一刻的真實。
+    </p>
+    <p class="about-text">
+      除劇場與電影劇照外，劉振祥長期紀錄台灣表演藝術生態，
+      與國家兩廳院、各表演團隊長年合作，影像廣為國內外媒體引用。
+    </p>
+    <ul class="bio-list">
+      <li class="bio-item">
+        <span class="bio-year">2010</span>
+        <span class="bio-desc">榮獲<strong>第 33 屆吳三連獎</strong>藝術獎攝影類</span>
+      </li>
+      <li class="bio-item">
+        <span class="bio-year">2017</span>
+        <span class="bio-desc">擔任<strong>《大佛普拉斯》</strong>電影劇照主攝影師，該片榮獲金馬獎最佳影片</span>
+      </li>
+      <li class="bio-item">
+        <span class="bio-year">2019</span>
+        <span class="bio-desc">拍攝<strong>雲門舞集池上秋收稻穗藝術節</strong>，系列影像廣受國際媒體引用</span>
+      </li>
+      <li class="bio-item">
+        <span class="bio-year">2021</span>
+        <span class="bio-desc">擔任<strong>《陽光普照》</strong>電影劇照主攝影師，金馬獎最佳影片</span>
+      </li>
+      <li class="bio-item">
+        <span class="bio-year">1987–</span>
+        <span class="bio-desc"><strong>雲門舞集</strong>長期合作攝影師，持續記錄三十餘年</span>
+      </li>
+      <li class="bio-item">
+        <span class="bio-year">常設</span>
+        <span class="bio-desc">與<strong>國家兩廳院</strong>及國內外各大表演團隊合作拍攝</span>
+      </li>
+      <li class="bio-item">
+        <span class="bio-year">電影</span>
+        <span class="bio-desc">曾為<strong>侯孝賢《戀戀風塵》</strong>及鍾孟宏多部電影操刀劇照</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="works f" id="works">
+  <div class="works-header">
+    <div>
+      <div class="section-label">影像作品</div>
+      <h2 class="section-title">精選系列</h2>
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn active">全部</button>
+      <button class="filter-btn">劇場</button>
+      <button class="filter-btn">電影</button>
+      <button class="filter-btn">人文</button>
+    </div>
+  </div>
+  <div class="photo-grid">
+    <div class="photo-item">
+      <div class="ph ph-1"></div>
+      <div class="photo-overlay">
+        <div class="photo-meta">
+          <div class="photo-title">雲門・九歌</div>
+          <div class="photo-series">劇場記錄 · 1993</div>
+        </div>
+      </div>
+    </div>
+    <div class="photo-item">
+      <div class="ph ph-2"></div>
+      <div class="photo-overlay">
+        <div class="photo-meta">
+          <div class="photo-title">池上秋收稻穗</div>
+          <div class="photo-series">戶外演出 · 2019</div>
+        </div>
+      </div>
+    </div>
+    <div class="photo-item">
+      <div class="ph ph-3"></div>
+      <div class="photo-overlay">
+        <div class="photo-meta">
+          <div class="photo-title">大佛普拉斯</div>
+          <div class="photo-series">電影劇照 · 2017</div>
+        </div>
+      </div>
+    </div>
+    <div class="photo-item">
+      <div class="ph ph-4"></div>
+      <div class="photo-overlay">
+        <div class="photo-meta">
+          <div class="photo-title">陽光普照</div>
+          <div class="photo-series">電影劇照 · 2019</div>
+        </div>
+      </div>
+    </div>
+    <div class="photo-item">
+      <div class="ph ph-5"></div>
+      <div class="photo-overlay">
+        <div class="photo-meta">
+          <div class="photo-title">雲門・流浪者之歌</div>
+          <div class="photo-series">劇場記錄 · 2009</div>
+        </div>
+      </div>
+    </div>
+    <div class="photo-item">
+      <div class="ph ph-6"></div>
+      <div class="photo-overlay">
+        <div class="photo-meta">
+          <div class="photo-title">戀戀風塵</div>
+          <div class="photo-series">電影劇照 · 1986</div>
+        </div>
+      </div>
+    </div>
+    <div class="photo-item">
+      <div class="ph ph-7"></div>
+      <div class="photo-overlay">
+        <div class="photo-meta">
+          <div class="photo-title">兩廳院廿週年</div>
+          <div class="photo-series">人文紀實 · 2007</div>
+        </div>
+      </div>
+    </div>
+    <div class="photo-item">
+      <div class="ph ph-8"></div>
+      <div class="photo-overlay">
+        <div class="photo-meta">
+          <div class="photo-title">雲門・水月</div>
+          <div class="photo-series">劇場記錄 · 1998</div>
+        </div>
+      </div>
+    </div>
+    <div class="photo-item">
+      <div class="ph ph-9"></div>
+      <div class="photo-overlay">
+        <div class="photo-meta">
+          <div class="photo-title">台北人文系列</div>
+          <div class="photo-series">人文紀實 · 2015</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="selected f" id="selected">
+  <div class="section-label">代表計劃</div>
+  <h2 class="section-title">長期合作・深度紀錄</h2>
+  <div class="selected-grid">
+    <div class="work-item f">
+      <div class="work-visual wv1">
+        <div class="work-visual-num">01</div>
+      </div>
+      <div class="work-cat">劇場攝影 · 1987 年至今</div>
+      <h3 class="work-title">雲門舞集<br>三十五年影像記錄</h3>
+      <p class="work-desc">
+        自 1987 年起長期跟隨雲門舞集，記錄林懷民到鄭宗龍時代的演出現場、
+        排練過程與戶外演出。池上稻穗藝術節系列影像是代表作，廣受國際媒體採用。
+      </p>
+      <a href="#contact" class="work-link">洽詢合作 →</a>
+    </div>
+    <div class="work-item f">
+      <div class="work-visual wv2 dark">
+        <div class="work-visual-num">02</div>
+      </div>
+      <div class="work-cat">電影劇照 · 2000 年代至今</div>
+      <h3 class="work-title">台灣新電影<br>幕後影像記錄</h3>
+      <p class="work-desc">
+        合作導演涵蓋侯孝賢、鍾孟宏。《大佛普拉斯》（2017）、《陽光普照》（2019）
+        均獲金馬獎最佳影片，劇照影像隨電影在國際影展廣泛流傳。
+      </p>
+      <a href="#contact" class="work-link">洽詢合作 →</a>
+    </div>
+    <div class="work-item f">
+      <div class="work-visual wv3">
+        <div class="work-visual-num">03</div>
+      </div>
+      <div class="work-cat">表演藝術 · 常設合作</div>
+      <h3 class="work-title">國家兩廳院<br>演出紀錄計劃</h3>
+      <p class="work-desc">
+        多年與國家兩廳院合作，記錄兩廳院廿週年、各年度旗艦製作，
+        以及旅居台灣的國際表演藝術家系列，建構台灣表演藝術視覺檔案。
+      </p>
+      <a href="#contact" class="work-link">洽詢合作 →</a>
+    </div>
+    <div class="work-item f">
+      <div class="work-visual wv4 dark">
+        <div class="work-visual-num">04</div>
+      </div>
+      <div class="work-cat">人文紀實 · 長期專題</div>
+      <h3 class="work-title">台灣土地<br>人文影像專題</h3>
+      <p class="work-desc">
+        以年為單位的長期拍攝計劃，深入記錄台灣各地的人文地景、
+        常民生活與社會變遷，曾獲吳三連獎攝影類肯定。
+      </p>
+      <a href="#contact" class="work-link">洽詢合作 →</a>
+    </div>
+  </div>
+</section>
+
+<div class="press">
+  <p class="press-label">合作機構與媒體</p>
+  <div class="press-row">
+    <span class="press-item">雲門舞集</span>
+    <span class="press-item">國家兩廳院</span>
+    <span class="press-item">金馬影展</span>
+    <span class="press-item">天下雜誌</span>
+    <span class="press-item">紐約時報</span>
+  </div>
+</div>
+
+<section class="contact f" id="contact">
+  <div class="section-label" style="justify-content:center">合作洽詢</div>
+  <h2 class="contact-title">有個<em>故事</em><br>想一起記錄嗎？</h2>
+  <p class="contact-sub">
+    接受劇場、電影劇照、企業形象、表演藝術紀錄等長期合作洽詢
+  </p>
+  <a href="mailto:liu@imageworks.tw" class="contact-email">liu@imageworks.tw</a>
+  <div class="contact-row">
+    <div class="ci">
+      <div class="ci-label">工作室</div>
+      <div class="ci-val">台北市大同區</div>
+    </div>
+    <div class="ci">
+      <div class="ci-label">電話</div>
+      <div class="ci-val">02-2595-XXXX</div>
+    </div>
+    <div class="ci">
+      <div class="ci-label">服務範圍</div>
+      <div class="ci-val">台灣 · 亞洲 · 海外</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-copy">© 2025 劉振祥影像工作室 · 版權所有</p>
+  <div class="footer-links">
+    <a href="#">Instagram</a>
+    <a href="#">Facebook</a>
+    <a href="#">關於版權</a>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+  });
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+  const obs = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); }), { threshold: 0.07 });
+  document.querySelectorAll('.f').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
